@@ -2,9 +2,9 @@
 {
 	public static class Board
 	{
-		private enum Field :ushort {O, X, E};
+		private enum Field {O, X, E};
 		private static readonly Field[] Fields = Enumerable.Repeat(Field.E, 9).ToArray();
-		public static bool Refresh(bool edit = false, ushort Title = 1, ushort Player = 1)
+		public static bool Refresh(bool edit = false, byte Title = 1, byte Player = 1)
 		{
 			if (Fields[(uint)Title - 1] == Field.O || Fields[(uint)Title - 1] == Field.X)
 				return true;
@@ -32,19 +32,19 @@
 	public static void Main()
 	{
 		bool Player = true, ErrorOccured = false;
-		ushort FieldChoosen, PlayerInt = 1, Counter = 0;
+		byte FieldChoosen, PlayerInt = 1, Counter = 0;
 		string? UserInput;
 		Board.Refresh();
 		while (!Board.WinCheck(PlayerInt) && Counter < 9)
 		{
 			Player = !Player;
-			PlayerInt=Convert.ToUInt16(Player);
+			PlayerInt=Convert.ToByte(Player);
 			Console.WriteLine($"Player {PlayerInt+1}'s move: ");
 			do
 			{
 				if (ErrorOccured) Console.WriteLine("Try again: ");
 				UserInput = Console.ReadLine();
-				while (!UInt16.TryParse(UserInput, out FieldChoosen) || FieldChoosen>9)
+				while (!Byte.TryParse(UserInput, out FieldChoosen) || FieldChoosen>9)
 				{
 					Console.WriteLine("Incorrect value, type again:");
 					UserInput = Console.ReadLine();
